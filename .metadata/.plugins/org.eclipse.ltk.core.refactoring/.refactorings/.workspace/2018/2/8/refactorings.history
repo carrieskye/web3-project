@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Web3_Lab1&apos; to &apos;Webshop&apos;" description="Rename resource &apos;Web3_Lab1&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/Web3_Lab1" name="Webshop" stamp="1519321923749" updateReferences="true"/>
+</session>

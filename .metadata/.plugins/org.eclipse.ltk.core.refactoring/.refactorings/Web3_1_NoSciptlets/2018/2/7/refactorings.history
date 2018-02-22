@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Web3_1_NoSciptlets/WebContent/NewFile.jspf&apos; to &apos;Header.jspf&apos;" description="Rename resource &apos;NewFile.jspf&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/NewFile.jspf" name="Header.jspf" stamp="1518794609028" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Web3_1_NoSciptlets/WebContent/Header.jspf&apos; to &apos;header.jspf&apos;" description="Rename resource &apos;Header.jspf&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/Header.jspf" name="header.jspf" stamp="1518794741040" updateReferences="true"/>
+</session>

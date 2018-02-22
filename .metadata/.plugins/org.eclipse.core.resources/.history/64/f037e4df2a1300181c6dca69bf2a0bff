@@ -1,0 +1,55 @@
+<%@page import="domain.model.Country"%>
+<%@page import="java.util.Collection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/sample.css">
+<meta charset="UTF-8">
+<title>Countries</title>
+</head>
+<body>
+	<header role="banner">
+		<img alt="Toscane" src="images/toscaneRibbon.jpg">
+	</header>
+
+	<main id="container">
+	<p>
+		<a href="index.html">Home</a>
+	</p>
+	<article>
+		<h1>Countries</h1>
+		<%
+			Country mostPopularCountry = (Country) request.getAttribute("popular");
+			if (mostPopularCountry != null) {
+		%>
+		<p>
+			The most popular country is
+			<%=mostPopularCountry.getName()%>
+		</p>
+		<%
+			}
+		%>
+		<table id="overview">
+			<tr>
+				<th>Name</th>
+				<th>Capital</th>
+				<th class="getal">Inhabitants</th>
+				<th class="getal">Votes</th>
+			</tr>
+			<c:foreach var="country" items="${countries}">
+			<tr>
+				<td>${country.name}</td>
+				<td>${country.capital}</td>
+				<td class="getal"><%=country.getNumberInhabitants()%></td>
+				<td class="getal"><%=country.getVotes()%></td>
+			</tr>
+			</c:foreach>
+		</table>
+		<p>
+			<a href="countryForm.jsp">Add new country</a>
+		</p>
+	</article>
+	</main>
+</body>
+</html>
