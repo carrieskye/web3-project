@@ -46,11 +46,17 @@ public class Controller extends HttpServlet {
 		case "addPerson":
 			destination = addPerson(request, response);
 			break;
-		case "overview":
+		case "userOverview":
 			destination = showPersons(request, response);
 			break;
-		case "productoverview":
+		case "productOverview":
 			destination = showProducts(request, response);
+			break;
+		case "productForm":
+			destination = "addProduct.jsp";
+			break;
+		case "addProduct":
+			destination = addProduct(request, response);
 			break;
 		default:
 			break;
@@ -84,6 +90,46 @@ public class Controller extends HttpServlet {
 				result.add(e.getMessage());
 				request.setAttribute("result", result);
 				destination = "signUp.jsp";
+			}
+		}
+		return destination;
+	}
+
+	private String showPersons(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Person> persons = service.getPersons();
+		request.setAttribute("persons", persons);
+		return "userOverview.jsp";
+	}
+
+	private String showProducts(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Product> products = service.getProducts();
+		request.setAttribute("products", products);
+		return "productOverview.jsp";
+	}
+
+	private String addProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Product product = new Product();
+
+		List<String> result = new ArrayList<String>();
+		getName(product, request, result);
+		getDescription(product, request, result);
+		getPrice(product, request, result);
+
+		String destination;
+		if (result.size() > 0) {
+			request.setAttribute("result", result);
+			destination = "addProduct.jsp";
+		} else {
+			try {
+				service.addProduct(product);
+				destination = showProducts(request, response);
+			} catch (Exception e) {
+				result.add(e.getMessage());
+				request.setAttribute("result", result);
+				destination = "addProduct.jsp";
 			}
 		}
 		return destination;
@@ -149,17 +195,39 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	private String showPersons(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<Person> persons = service.getPersons();
-		request.setAttribute("persons", persons);
-		return "overview.jsp";
+	private void getName(Product product, HttpServletRequest request, List<String> result) {
+		String name = request.getParameter("name");
+		request.setAttribute("namePreviousValue", name);
+		try {
+			product.setName(name);
+			request.setAttribute("nameClass", "has-success");
+		} catch (Exception exc) {
+			request.setAttribute("nameClass", "has-error");
+			result.add(exc.getMessage());
+		}
 	}
 
-	private String showProducts(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		List<Product> products = service.getProducts();
-		request.setAttribute("products", products);
-		return "productOverview.jsp";
+	private void getDescription(Product product, HttpServletRequest request, List<String> result) {
+		String description = request.getParameter("description");
+		request.setAttribute("descriptionPreviousValue", description);
+		try {
+			product.setDescription(description);
+			request.setAttribute("descriptionClass", "has-success");
+		} catch (Exception exc) {
+			request.setAttribute("descriptionClass", "has-error");
+			result.add(exc.getMessage());
+		}
+	}
+
+	private void getPrice(Product product, HttpServletRequest request, List<String> result) {
+		String price = request.getParameter("price");
+		request.setAttribute("pricePreviousValue", price);
+		try {
+			product.setPrice(price);
+			request.setAttribute("priceClass", "has-success");
+		} catch (Exception exc) {
+			request.setAttribute("priceClass", "has-error");
+			result.add(exc.getMessage());
+		}
 	}
 }

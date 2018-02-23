@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page import="java.util.List"%>
 <%@page import="domain.model.Country"%>
 <%@page import="java.util.Map"%>
@@ -17,53 +18,45 @@
 	<main id="container"> <jsp:include page="title.jsp">
 		<jsp:param value="New Country" name="title" />
 	</jsp:include>
-	
+
 	<article>
 
 		<form method="POST" action="Controller">
-			<%
-				List<String> result = (List<String>) request.getAttribute("result");
-				String statusMesageClass = "";
-				StringBuilder statusMessage = new StringBuilder();
-				if (result != null) {
-					statusMesageClass = "danger";
-			%>
-			<div class="alert alert-<%=statusMesageClass%>">
-				<%
-					for (String message : result) {
-				%>
-				<p><%=message%></p>
-				<%
-					}
-				}
-				%>
-			</div>
+			<c:if test="${fn:length(result) gt 0}">
+				<div class="alert alert">
+					<main> <c:forEach var="error" items="${result}">
+						<ul>
+							<li>${error}</li>
+						</ul>
+					</c:forEach>
+				</div>
+			</c:if>
+
 			<fieldset>
 				<legend>Identification</legend>
 				<p class="form-group <%=request.getAttribute("nameClass")%>">
 					<label class="control-label" for="name">Name (required): </label> <input
 						id="name" name="name" type="text"
-						value="<%=request.getAttribute("namePreviousValue") != null ? request
-					.getAttribute("namePreviousValue") : ""%>">
+						value="<%=request.getAttribute("namePreviousValue") != null ? request.getAttribute("namePreviousValue") : ""%>">
 				</p>
 				<p class="form-group <%=request.getAttribute("capitalClass")%>">
 					<label class="control-label" for="capital">Capital: </label> <input
 						id="capital" type="text" name="capital"
-						value="<%=request.getAttribute("capitalPreviousValue") != null ? request
-					.getAttribute("capitalPreviousValue") : ""%>">
+						value="<%=request.getAttribute("capitalPreviousValue") != null
+					? request.getAttribute("capitalPreviousValue") : ""%>">
 				</p>
 				<p class="form-group <%=request.getAttribute("inhabitantsClass")%>">
 					<label class="control-label" for="inhabitants">Inhabitants:
 					</label> <input id="inhabitants" name="inhabitants" type="text"
-						value="<%=request.getAttribute("inhabitantsPreviousValue") != null ? request
-					.getAttribute("inhabitantsPreviousValue") : ""%>">
+						value="<%=request.getAttribute("inhabitantsPreviousValue") != null
+					? request.getAttribute("inhabitantsPreviousValue") : ""%>">
 				</p>
 			</fieldset>
 			<p class="form-group <%=request.getAttribute("votesClass")%>">
 				<label class="control-label" for="votes">Votes: </label> <input
 					id="votes" name="votes" type="text"
-					value="<%=request.getAttribute("votesPreviousValue") != null ? request
-					.getAttribute("votesPreviousValue") : ""%>">
+					value="<%=request.getAttribute("votesPreviousValue") != null ? request.getAttribute("votesPreviousValue")
+					: ""%>">
 			</p>
 
 			<p>

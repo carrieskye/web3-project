@@ -57,7 +57,7 @@ public class RegisterTest {
 		String title = driver.getTitle();
 		assertEquals("Home", title);
 
-		driver.get("http://localhost:8080/Webshop/Controller?action=overview");
+		driver.get("http://localhost:8080/Webshop/Controller?action=userOverview");
 
 		ArrayList<WebElement> listItems = (ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
 		boolean found = false;
