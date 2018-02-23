@@ -58,6 +58,12 @@ public class Controller extends HttpServlet {
 		case "addProduct":
 			destination = addProduct(request, response);
 			break;
+		case "updateForm":
+			destination = updateProductForm(request, response);
+			break;
+		case "updateProduct":
+			destination = updateProduct(request, response);
+			break;
 		default:
 			break;
 		}
@@ -130,6 +136,49 @@ public class Controller extends HttpServlet {
 				result.add(e.getMessage());
 				request.setAttribute("result", result);
 				destination = "addProduct.jsp";
+			}
+		}
+		return destination;
+	}
+
+	private String updateProductForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Product product = service.getProduct(Integer.parseInt(request.getParameter("productId")));
+
+		request.setAttribute("productId", product.getProductId());
+		request.setAttribute("namePreviousValue", product.getName());
+		request.setAttribute("descriptionPreviousValue", product.getDescription());
+		request.setAttribute("pricePreviousValue", product.getPrice());
+
+		String destination = "updateProduct.jsp";
+		return destination;
+	}
+
+	private String updateProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		Product product = service.getProduct(productId);
+
+		List<String> result = new ArrayList<String>();
+		
+		getName(product, request, result);
+		getDescription(product, request, result);
+		getPrice(product, request, result);
+
+		String destination;
+		if (result.size() > 0) {
+			request.setAttribute("result", result);
+			request.setAttribute("productId", productId);
+			destination = "updateProduct.jsp";
+		} else {
+			try {
+				service.updateProduct(product);
+				destination = showProducts(request, response);
+			} catch (Exception e) {
+				result.add(e.getMessage());
+				request.setAttribute("result", result);
+				request.setAttribute("productId", productId);
+				destination = "updateProduct.jsp";
 			}
 		}
 		return destination;
