@@ -20,12 +20,14 @@
 				<th>E-mail</th>
 				<th>First Name</th>
 				<th>Last Name</th>
+				<th></th>
 			</tr>
 			<c:forEach var="person" items="${persons}">
 				<tr>
 					<td>${person.email}</td>
 					<td>${person.firstName}</td>
 					<td>${person.lastName}</td>
+					<td><a href="Controller?action=deleteUserConfirmation&userid=${person.userid}">Remove</a></td>
 				</tr>
 			</c:forEach>
 			<caption>Users Overview</caption>

@@ -29,7 +29,7 @@
 
 
 
-		<form method="post" action="Controller?action=addPerson"
+		<form method="post" action="Controller?action=addUser"
 			novalidate="novalidate">
 			<!-- novalidate in order to be able to run tests correctly -->
 			<p>

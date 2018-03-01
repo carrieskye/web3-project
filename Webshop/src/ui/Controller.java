@@ -43,14 +43,20 @@ public class Controller extends HttpServlet {
 		case "signUp":
 			destination = "signUp.jsp";
 			break;
-		case "addPerson":
-			destination = addPerson(request, response);
+		case "addUser":
+			destination = addUser(request, response);
 			break;
 		case "userOverview":
-			destination = showPersons(request, response);
+			destination = showUsers(request, response);
 			break;
 		case "productOverview":
 			destination = showProducts(request, response);
+			break;
+		case "deleteUserConfirmation":
+			destination = deleteUserConfirmation(request, response);
+			break;
+		case "deleteUser":
+			destination = deleteUser(request, response);
 			break;
 		case "productForm":
 			destination = "addProduct.jsp";
@@ -78,7 +84,7 @@ public class Controller extends HttpServlet {
 		view.forward(request, response);
 	}
 
-	private String addPerson(HttpServletRequest request, HttpServletResponse response)
+	private String addUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Person person = new Person();
 
@@ -107,11 +113,29 @@ public class Controller extends HttpServlet {
 		return destination;
 	}
 
-	private String showPersons(HttpServletRequest request, HttpServletResponse response)
+	private String showUsers(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Person> persons = service.getPersons();
 		request.setAttribute("persons", persons);
 		return "userOverview.jsp";
+	}
+
+	private String deleteUserConfirmation(HttpServletRequest request, HttpServletResponse response) {
+		Person person = service.getPerson(request.getParameter("userid"));
+
+		request.setAttribute("userid", person.getUserid());
+		request.setAttribute("firstname", person.getFirstName());
+		request.setAttribute("lastname", person.getLastName());
+
+		String destination = "deleteUser.jsp";
+		return destination;
+	}
+
+	private String deleteUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String userid = request.getParameter("userid");
+		service.deletePerson(userid);
+		return showUsers(request, response);
 	}
 
 	private String showProducts(HttpServletRequest request, HttpServletResponse response)
