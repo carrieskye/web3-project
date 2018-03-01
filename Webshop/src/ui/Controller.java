@@ -64,6 +64,12 @@ public class Controller extends HttpServlet {
 		case "updateProduct":
 			destination = updateProduct(request, response);
 			break;
+		case "deleteProductConfirmation":
+			destination = deleteProductConfirmation(request, response);
+			break;
+		case "deleteProduct":
+			destination = deleteProduct(request, response);
+			break;
 		default:
 			break;
 		}
@@ -160,7 +166,7 @@ public class Controller extends HttpServlet {
 		Product product = service.getProduct(productId);
 
 		List<String> result = new ArrayList<String>();
-		
+
 		getName(product, request, result);
 		getDescription(product, request, result);
 		getPrice(product, request, result);
@@ -182,6 +188,24 @@ public class Controller extends HttpServlet {
 			}
 		}
 		return destination;
+	}
+
+	private String deleteProductConfirmation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Product product = service.getProduct(Integer.parseInt(request.getParameter("productId")));
+
+		request.setAttribute("productId", product.getProductId());
+		request.setAttribute("name", product.getName());
+
+		String destination = "deleteProduct.jsp";
+		return destination;
+	}
+
+	private String deleteProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		service.deleteProduct(productId);
+		return showProducts(request, response);
 	}
 
 	private void getUserid(Person person, HttpServletRequest request, List<String> result) {
