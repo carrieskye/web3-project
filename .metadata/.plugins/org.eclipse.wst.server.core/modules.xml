@@ -3,5 +3,6 @@
   <module moduleId="org.eclipse.jst.jee.server:Webshop" serverId="Tomcat v8.5 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Web3_1_NoSciptlets" serverId="Tomcat v8.5 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Web3_Lab1" serverId="Tomcat v8.5 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:Demo" serverId="Tomcat v8.5 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Labo01_WebShop" serverId="Tomcat v8.5 Server at localhost"/>
 </modules>

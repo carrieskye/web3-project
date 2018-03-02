@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.firefox.FirefoxDriver"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeDriver"/>
-<fullyQualifiedTypeName name="domain.Person"/>
 <fullyQualifiedTypeName name="domain.ShopService"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
@@ -19,5 +18,12 @@
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
 <fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="domain.Person"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="domain.db.DbException"/>
+<fullyQualifiedTypeName name="domain.service.CountryService"/>
+<fullyQualifiedTypeName name="domain.db.CountryDbSql"/>
+<fullyQualifiedTypeName name="domain.db.CountryDb"/>
 <fullyQualifiedTypeName name="domain.model.Country"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>
