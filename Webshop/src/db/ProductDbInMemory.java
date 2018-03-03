@@ -7,7 +7,7 @@ import java.util.Map;
 
 import domain.Product;
 
-public class ProductDbInMemory {
+public class ProductDbInMemory implements ProductDb{
 	private Map<Integer, Product> records = new HashMap<Integer, Product>();
 	
 	public ProductDbInMemory () {

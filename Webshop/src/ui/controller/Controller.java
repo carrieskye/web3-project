@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Person;
 import domain.Product;
-import domain.ShopService;
+import service.ShopService;
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {

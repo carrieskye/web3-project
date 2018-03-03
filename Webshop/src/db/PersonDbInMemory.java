@@ -7,7 +7,7 @@ import java.util.Map;
 
 import domain.Person;
 
-public class PersonDbInMemory {
+public class PersonDbInMemory implements PersonDb{
 	private Map<String, Person> persons = new HashMap<String, Person>();
 	
 	public PersonDbInMemory () {
