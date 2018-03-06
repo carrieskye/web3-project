@@ -42,6 +42,7 @@ public class Person {
 		Pattern p = Pattern.compile(USERID_PATTERN);
 		Matcher m = p.matcher(email);
 		if (!m.matches()) {
+			System.out.println(email);
 			throw new IllegalArgumentException("Email not valid");
 		}
 		this.email = email;
@@ -53,7 +54,8 @@ public class Person {
 		return email;
 	}
 	
-	private String getPassword() {
+	//TODO: make private again
+	public String getPassword() {
 		return password;
 	}
 	

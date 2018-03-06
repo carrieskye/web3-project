@@ -12,7 +12,7 @@ import domain.Product;
 
 public class ProductDbSql implements ProductDb {
 	private Properties properties = new Properties();
-	private String url = "jdbc:postgresql://databanken.ucll.be:51718/2TXVT";
+	private String url = "jdbc:postgresql://databanken.ucll.be:51718/2TXVT?currentSchema=r0458882";
 
 	public ProductDbSql() {
 		properties.setProperty("user", Login.user);
@@ -26,18 +26,16 @@ public class ProductDbSql implements ProductDb {
 		}
 	}
 
-	@Override
 	public Product get(int id) {
 		Product product = null;
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			ResultSet result = statement.executeQuery("SELECT * FROM r0458882.product WHERE productid = " + id);
+			ResultSet result = statement.executeQuery("SELECT * FROM product WHERE productid = " + id);
 			while (result.next()) {
-				int productId = result.getInt("productid");
 				String name = result.getString("name");
 				String description = result.getString("description");
 				double price = result.getDouble("price");
-				product = new Product(productId, name, description, price);
+				product = new Product(id, name, description, price);
 			}
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
@@ -45,12 +43,11 @@ public class ProductDbSql implements ProductDb {
 		return product;
 	}
 
-	@Override
 	public List<Product> getAll() {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			ResultSet result = statement.executeQuery("SELECT * FROM r0458882.product");
+			ResultSet result = statement.executeQuery("SELECT * FROM product");
 			while (result.next()) {
 				int productId = result.getInt("productid");
 				String name = result.getString("name");
@@ -65,25 +62,23 @@ public class ProductDbSql implements ProductDb {
 		return products;
 	}
 
-	@Override
 	public void add(Product product) {
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			ResultSet result = statement.executeQuery("SELECT COUNT(*) AS number FROM r0458882.product");
+			ResultSet result = statement.executeQuery("SELECT COUNT(*) AS number FROM product");
 			result.next();
 			int productId = result.getInt("number");
-			statement.execute("INSERT INTO r0458882.product VALUES (" + productId + ", '" + product.getName() + "', '"
+			statement.execute("INSERT INTO product VALUES (" + productId + ", '" + product.getName() + "', '"
 					+ product.getDescription() + "', " + product.getPrice() + ")");
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
 		}
 	}
 
-	@Override
 	public void update(Product product) {
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			statement.execute("UPDATE r0458882.product SET name = '" + product.getName() + "', description = '"
+			statement.execute("UPDATE product SET name = '" + product.getName() + "', description = '"
 					+ product.getDescription() + "', price = " + product.getPrice() + "WHERE productid = "
 					+ product.getProductId());
 		} catch (SQLException e) {
@@ -91,11 +86,10 @@ public class ProductDbSql implements ProductDb {
 		}
 	}
 
-	@Override
 	public void delete(int id) {
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			statement.execute("DELETE FROM r0458882.product WHERE productid = " + id);
+			statement.execute("DELETE FROM product WHERE productid = " + id);
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
 		}
