@@ -66,6 +66,9 @@ public class PersonDbSql implements PersonDb {
 	}
 
 	public void add(Person person) {
+		if (get(person.getUserid()) != null){
+			throw new DbException("User already exists");
+		}
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
 			statement.execute(

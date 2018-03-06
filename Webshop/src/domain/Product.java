@@ -71,6 +71,16 @@ public class Product {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		Product product = (Product) o;
+		if (this.getProductId() == product.getProductId() && this.getName().equals(product.getName())
+				&& this.getDescription().equals(product.getDescription()) && this.getPrice() == product.getPrice()) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public String toString() {
 		return getName() + ": " + getDescription() + " - " + getPrice();
 	}

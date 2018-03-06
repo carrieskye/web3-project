@@ -1,6 +1,5 @@
 package ui.desktop;
 
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import db.PersonDb;
 import db.PersonDbSql;
@@ -8,7 +7,7 @@ import domain.Person;
 
 public class DesktopUI {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args){
 		PersonDb db = new PersonDbSql();
 		db.add(addPerson());
 		for (Person person : db.getAll()) {

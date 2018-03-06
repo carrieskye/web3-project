@@ -1,4 +1,4 @@
-package test;
+package ui;
 
 import static org.junit.Assert.*;
 
@@ -16,10 +16,7 @@ public class SeleniumWorksWellTest {
 
 		@Before
 		public void setUp() throws Exception {
-			// pas aan indien nodig
-			System.setProperty("webdriver.chrome.driver", "/<folder waar je chromedriver installeerde>/chromedriver");
-			// windows: gebruik dubbele \\ om pad aan te geven
-			// hint: zoek een werkende test op van web 2 ...
+			System.setProperty("webdriver.chrome.driver", "/Applications/App_downloads/chromedriver");
 			driver = new ChromeDriver();
 			driver.get("https://nl.wikipedia.org/wiki/Hoofdpagina");
 		}
@@ -43,9 +40,9 @@ public class SeleniumWorksWellTest {
 			WebElement link = driver.findElement(By.id("searchButton"));
 			link.click();
 			
-			assertEquals("Seleen - Wikipedia", driver.getTitle());
+			assertEquals("Selenium - Wikipedia", driver.getTitle());
 			
-			assertEquals("Seleen", driver.findElement(By.tagName("h1")).getText());
+			assertEquals("Selenium", driver.findElement(By.tagName("h1")).getText());
 
 	}
 

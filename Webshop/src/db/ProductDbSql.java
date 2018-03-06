@@ -63,6 +63,9 @@ public class ProductDbSql implements ProductDb {
 	}
 
 	public void add(Product product) {
+		if (product == null) {
+			throw new DbException("No product given");
+		}
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
 			ResultSet result = statement.executeQuery("SELECT COUNT(*) AS number FROM product");
@@ -76,17 +79,23 @@ public class ProductDbSql implements ProductDb {
 	}
 
 	public void update(Product product) {
+		if (product == null) {
+			throw new DbException("No product given");
+		}
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			statement.execute("UPDATE product SET name = '" + product.getName() + "', description = '"
-					+ product.getDescription() + "', price = " + product.getPrice() + "WHERE productid = "
-					+ product.getProductId());
+			statement.execute(
+					"UPDATE product SET name = '" + product.getName() + "', description = '" + product.getDescription()
+							+ "', price = " + product.getPrice() + "WHERE productid = " + product.getProductId());
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
 		}
 	}
 
 	public void delete(int id) {
+		if (id < 0) {
+			throw new DbException("No valid id given");
+		}
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
 			statement.execute("DELETE FROM product WHERE productid = " + id);
