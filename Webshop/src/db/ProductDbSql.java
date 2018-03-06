@@ -68,9 +68,9 @@ public class ProductDbSql implements ProductDb {
 		}
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			ResultSet result = statement.executeQuery("SELECT COUNT(*) AS number FROM product");
+			ResultSet result = statement.executeQuery("SELECT MAX(productid) AS max FROM product");
 			result.next();
-			int productId = result.getInt("number");
+			int productId = result.getInt("max") + 1;
 			statement.execute("INSERT INTO product VALUES (" + productId + ", '" + product.getName() + "', '"
 					+ product.getDescription() + "', " + product.getPrice() + ")");
 		} catch (SQLException e) {
@@ -99,6 +99,7 @@ public class ProductDbSql implements ProductDb {
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
 			statement.execute("DELETE FROM product WHERE productid = " + id);
+			statement.execute("UPDATE product SET productid = productid - 1 WHERE productid > " + id);
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
 		}

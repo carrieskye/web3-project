@@ -68,7 +68,6 @@ public class RegisterTest {
 			}
 		}
 		assertEquals(true, found);
-
 	}
 
 	@Test
@@ -214,6 +213,5 @@ public class RegisterTest {
 
 		WebElement fieldEmail = driver.findElement(By.id("email"));
 		assertEquals("pieter.pieters@hotmail.com", fieldEmail.getAttribute("value"));
-
 	}
 }

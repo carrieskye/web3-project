@@ -25,25 +25,33 @@ public class ProductDbTest {
 		db.add(product3);
 	}
 
+	@After
+	public void clearTestData() {
+		int newRecords = db.getAll().size() - records;
+		for (int i = newRecords - 1; i >= 0; i--) {
+			db.delete(records + i);
+		}
+	}
+
 	@Test
-	public void get_returns_product_when_correct_id_given() {
+	public void getReturnsProductWhenCorrectIdGiven() {
 		assertEquals(db.get(records), product1);
 	}
 
 	@Test
-	public void get_returns_null_when_no_corresponding_product_exists() {
+	public void getReturnsNullWhenNoCorrespondingProductExists() {
 		assertEquals(db.get(records + 3), null);
 	}
 
 	@Test
-	public void getAll_shows_list_of_all_products() {
+	public void getAllShowsListOfAllProducts() {
 		assertTrue(db.getAll().contains(product1));
 		assertTrue(db.getAll().contains(product2));
 		assertTrue(db.getAll().contains(product3));
 	}
 
 	@Test
-	public void add_adds_product_with_correct_values() {
+	public void addAddsProductWithCorrectValues() {
 		Product product = new Product(records + 3, "Coconut", "White fruit with milk", 3.0);
 		db.add(product);
 		assertEquals(db.get(records + 3), product);
@@ -51,16 +59,8 @@ public class ProductDbTest {
 	}
 
 	@Test(expected = DbException.class)
-	public void add_throws_exception_for_empty_product() {
+	public void addThrowsExceptionForEmptyProduct() {
 		db.add(null);
-	}
-
-	@After
-	public void clearTestData() {
-		int newRecords = db.getAll().size() - records;
-		for (int i = 0; i < newRecords; i++) {
-			db.delete(records + i);
-		}
 	}
 
 }
