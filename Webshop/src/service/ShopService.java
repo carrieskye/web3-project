@@ -4,14 +4,14 @@ import java.util.List;
 
 import db.DbException;
 import db.PersonDb;
-import db.PersonDbInMemory;
+import db.PersonDbSql;
 import db.ProductDb;
 import db.ProductDbSql;
 import domain.Person;
 import domain.Product;
 
 public class ShopService {
-	private PersonDb personDb = new PersonDbInMemory();
+	private PersonDb personDb = new PersonDbSql();
 	private ProductDb productDb = new ProductDbSql();
 
 	public ShopService() {
