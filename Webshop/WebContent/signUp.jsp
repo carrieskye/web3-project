@@ -34,25 +34,25 @@
 			<!-- novalidate in order to be able to run tests correctly -->
 			<p>
 				<label for="userid">User id</label><input type="text" id="userid"
-					name="userid" required value="${useridPreviousValue}">
+					name="userid" required value="<c:out value='${useridPreviousValue}'/>">
 			</p>
 			<p>
 				<label for="firstName">First Name</label><input type="text"
 					id="firstName" name="firstName" required
-					value="${firstNamePreviousValue}">
+					value="<c:out value='${firstNamePreviousValue}'/>">
 			</p>
 			<p>
 				<label for="lastName">Last Name</label><input type="text"
 					id="lastName" name="lastName" required
-					value="${lastNamePreviousValue}">
+					value="<c:out value='${lastNamePreviousValue}'/>">
 			</p>
 			<p>
 				<label for="email">Email</label><input type="email" id="email"
-					name="email" required value="${emailPreviousValue}">
+					name="email" required value="<c:out value='${emailPreviousValue}'/>">
 			</p>
 			<p>
 				<label for="password">Password</label><input type="password"
-					id="password" name="password" required>
+					id="password" name="password" required value="<c:out value=''/>">
 			</p>
 			<p>
 				<input type="submit" id="signUp" value="Sign Up">

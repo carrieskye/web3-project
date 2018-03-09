@@ -34,12 +34,12 @@
 			<!-- novalidate in order to be able to run tests correctly -->
 			<p>
 				<label for="name">Name</label><input type="text" id="name"
-					name="name" required value="${namePreviousValue}">
+					name="name" required value="<c:out value='${namePreviousValue}'/>">
 			</p>
 			<p>
 				<label for="description">Description</label><input type="text"
 					id="description" name="description" required
-					value="${descriptionPreviousValue}">
+					value="<c:out value='${descriptionPreviousValue}'/>">
 			</p>
 			<p>
 				<label for="price">Price</label><input type="number" id="price"
