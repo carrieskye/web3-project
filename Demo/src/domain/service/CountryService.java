@@ -1,13 +1,18 @@
 package domain.service;
 
 import java.util.List;
+import java.util.Properties;
 
 import domain.db.CountryDb;
 import domain.db.CountryDbSql;
 import domain.model.Country;
 
 public class CountryService {
-	private CountryDb db = new CountryDbSql();
+	private CountryDb db;
+	
+	public CountryService(Properties properties) {
+		db = new CountryDbSql(properties);
+	}
 
 	public void addCountry(Country country) {
 		db.add(country);

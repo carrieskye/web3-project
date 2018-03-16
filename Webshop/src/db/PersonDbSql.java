@@ -1,5 +1,9 @@
 package db;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -112,6 +116,14 @@ public class PersonDbSql implements PersonDb {
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
 		}
+	}
+
+	public String hashedPassword(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		MessageDigest hash = MessageDigest.getInstance("SHA-512");
+		hash.reset();
+		hash.update(password.getBytes("UTF-8"));
+		String hashedPassword = new BigInteger(1, hash.digest()).toString(16);
+		return hashedPassword;
 	}
 
 }
