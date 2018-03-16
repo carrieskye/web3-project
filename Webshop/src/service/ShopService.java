@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Properties;
 
 import db.DbException;
 import db.PersonDb;
@@ -11,10 +12,12 @@ import domain.Person;
 import domain.Product;
 
 public class ShopService {
-	private PersonDb personDb = new PersonDbSql();
-	private ProductDb productDb = new ProductDbSql();
+	private PersonDb personDb;
+	private ProductDb productDb;
 
-	public ShopService() {
+	public ShopService(Properties properties) {
+		personDb = new PersonDbSql(properties);
+		productDb = new ProductDbSql(properties);
 	}
 
 	public Person getPerson(String personId) {

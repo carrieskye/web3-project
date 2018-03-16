@@ -18,15 +18,13 @@ import domain.Person;
 
 public class PersonDbSql implements PersonDb {
 	private Properties properties = new Properties();
-	private String url = "jdbc:postgresql://databanken.ucll.be:51718/2TXVT?currentSchema=r0458882";
+	private String url;
 
-	public PersonDbSql() {
-		properties.setProperty("user", Login.user);
-		properties.setProperty("password", Login.password);
-		properties.setProperty("ssl", "true");
-		properties.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+	public PersonDbSql(Properties properties) {
 		try {
 			Class.forName("org.postgresql.Driver");
+			this.properties = properties;
+			this.url = properties.getProperty("url");
 		} catch (ClassNotFoundException e) {
 			throw new DbException(e.getMessage(), e);
 		}

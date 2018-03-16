@@ -1,13 +1,14 @@
 package db;
 
 import static org.junit.Assert.*;
+import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import domain.Product;
 
 public class ProductDbTest {
-	private ProductDb db = new ProductDbSql();
+	private ProductDb db = new ProductDbSql(getProperties());
 	Product product1;
 	Product product2;
 	Product product3;
@@ -63,4 +64,13 @@ public class ProductDbTest {
 		db.add(null);
 	}
 
+	private static Properties getProperties() {
+		Properties properties = new Properties();
+		properties.setProperty("url", "jdbc:postgresql://databanken.ucll.be:51718/2TXVT");
+		properties.setProperty("user", Login.user);
+		properties.setProperty("password", Login.password);
+		properties.setProperty("ssl", "true");
+		properties.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+		return properties;
+	}
 }

@@ -13,15 +13,13 @@ import domain.Product;
 
 public class ProductDbSql implements ProductDb {
 	private Properties properties = new Properties();
-	private String url = "jdbc:postgresql://databanken.ucll.be:51718/2TXVT?currentSchema=r0458882";
+	private String url;
 
-	public ProductDbSql() {
-		properties.setProperty("user", Login.user);
-		properties.setProperty("password", Login.password);
-		properties.setProperty("ssl", "true");
-		properties.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+	public ProductDbSql(Properties properties) {
 		try {
 			Class.forName("org.postgresql.Driver");
+			this.properties = properties;
+			this.url = properties.getProperty("url");
 		} catch (ClassNotFoundException e) {
 			throw new DbException(e.getMessage(), e);
 		}
