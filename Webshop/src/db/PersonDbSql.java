@@ -42,7 +42,8 @@ public class PersonDbSql implements PersonDb {
 				String lastName = result.getString("lastname");
 				String email = result.getString("email");
 				String password = result.getString("password");
-				person = new Person(userId, email, password, firstName, lastName);
+				String salt = result.getString("salt");
+				person = new Person(userId, email, password, firstName, lastName, salt);
 			}
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
@@ -61,7 +62,8 @@ public class PersonDbSql implements PersonDb {
 				String lastName = result.getString("lastname");
 				String email = result.getString("email");
 				String password = result.getString("password");
-				Person person = new Person(userId, email, password, firstName, lastName);
+				String salt = result.getString("salt");
+				Person person = new Person(userId, email, password, firstName, lastName, salt);
 				persons.add(person);
 			}
 		} catch (SQLException e) {
@@ -74,7 +76,7 @@ public class PersonDbSql implements PersonDb {
 		if (get(person.getUserid()) != null) {
 			throw new DbException("User already exists");
 		}
-		String sql = "INSERT INTO person (userid, firstname, lastname, email, password) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO person (userid, firstname, lastname, email, password, salt) VALUES (?,?,?,?,?,?)";
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, person.getUserid());
@@ -82,6 +84,7 @@ public class PersonDbSql implements PersonDb {
 			statement.setString(3, person.getLastName());
 			statement.setString(4, person.getEmail());
 			statement.setString(5, person.getPassword());
+			statement.setString(6, person.getSalt());
 			statement.execute();
 
 		} catch (SQLException e) {
@@ -91,14 +94,15 @@ public class PersonDbSql implements PersonDb {
 	}
 
 	public void update(Person person) {
-		String sql = "UPDATE person SET firstname = ?, lastname = ?, email = ?, password = ? WHERE userid = ?";
+		String sql = "UPDATE person SET firstname = ?, lastname = ?, email = ?, password = ?, salt = ? WHERE userid = ?";
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, person.getFirstName());
 			statement.setString(2, person.getLastName());
 			statement.setString(3, person.getEmail());
 			statement.setString(4, person.getPassword());
-			statement.setString(5, person.getUserid());
+			statement.setString(5, person.getSalt());
+			statement.setString(6, person.getUserid());
 			statement.execute();
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
@@ -107,9 +111,10 @@ public class PersonDbSql implements PersonDb {
 	}
 
 	public void delete(String userId) {
-		String sql = "DELETE FROM person WHERE userid = '?'";
+		String sql = "DELETE FROM person WHERE userid = ?";
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				PreparedStatement statement = connection.prepareStatement(sql);) {
+			statement.setString(1, userId);
 			statement.execute();
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);

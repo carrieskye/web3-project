@@ -9,7 +9,9 @@ public class DesktopUI {
 
 	public static void main(String[] args) {
 		ShopService service = new ShopService(getProperties());
-		service.addPerson(newPerson());
+		if (JOptionPane.showConfirmDialog(null, "Add new user?", "Add new user?", JOptionPane.YES_NO_OPTION) == 0) {
+			service.addPerson(newPerson());
+		}
 		for (Person person : service.getPersons()) {
 			System.out.println(person);
 		}
@@ -24,15 +26,15 @@ public class DesktopUI {
 		person.setPassword(JOptionPane.showInputDialog("Password:"));
 		return person;
 	}
-	
+
 	private static Properties getProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("url", "jdbc:postgresql://databanken.ucll.be:51718/2TXVT");
-		properties.setProperty("user",Login.user);
+		properties.setProperty("user", Login.user);
 		properties.setProperty("password", Login.password);
 		properties.setProperty("ssl", "true");
 		properties.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
 		return properties;
 	}
-	
+
 }

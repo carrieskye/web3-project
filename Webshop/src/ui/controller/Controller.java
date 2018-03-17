@@ -300,7 +300,7 @@ public class Controller extends HttpServlet {
 		String password = request.getParameter("password");
 		request.setAttribute("passwordPreviousValue", password);
 		try {
-			person.setPassword(password);
+			person.setPasswordHashed(password);
 			request.setAttribute("passwordClass", "has-success");
 		} catch (Exception exc) {
 			request.setAttribute("passwordClass", "has-error");

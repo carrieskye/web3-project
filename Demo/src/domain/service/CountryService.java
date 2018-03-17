@@ -9,7 +9,7 @@ import domain.model.Country;
 
 public class CountryService {
 	private CountryDb db;
-	
+
 	public CountryService(Properties properties) {
 		db = new CountryDbSql(properties);
 	}
