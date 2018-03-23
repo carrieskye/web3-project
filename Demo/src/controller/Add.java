@@ -1,76 +1,35 @@
-package ui.controller;
+package controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import domain.model.Country;
-import domain.service.CountryService;
 
-@WebServlet("/Controller")
-public class Controller extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private CountryService service;
+public class Add extends RequestHandler {
 
-	public Controller() {
-		super();
-	}
-
-	public void init() throws ServletException {
-		super.init();
-		ServletContext context = getServletContext();
-		
-		Properties properties = new Properties();
-		properties.setProperty("user", context.getInitParameter("user"));
-		properties.setProperty("password", context.getInitParameter("password"));
-		properties.setProperty("ssl", context.getInitParameter("ssl"));
-		properties.setProperty("sslfactory", context.getInitParameter("sslfactory"));
-		properties.setProperty("url", context.getInitParameter("url"));
-		properties.setProperty("currentSchema", context.getInitParameter("currentSchema"));
-		
-		service = new CountryService(properties);
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String destination = showCountries(request, response);
-
-		RequestDispatcher view = request.getRequestDispatcher(destination);
-		view.forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@Override
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		Country country = new Country();
-
+				
 		List<String> result = new ArrayList<String>();
 		getName(country, request, result);
 		getCapital(country, request, result);
 		getNumberOfInhabitants(country, request, result);
 		getNumberOfVotes(country, request, result);
 
-		String destination;
+		String destination = "index.html";
 		if (result.size() > 0) {
 			request.setAttribute("result", result);
 			destination = "countryForm.jsp";
 		} else {
-			service.addCountry(country);
-			destination = showCountries(request, response);
+			getService().addCountry(country);
+			destination = "Controller?action=Overview";
 		}
 
-		RequestDispatcher view = request.getRequestDispatcher(destination);
-		view.forward(request, response);
+		return destination;
 	}
-
+	
 	private void getName(Country country, HttpServletRequest request, List<String> result) {
 		String name = request.getParameter("name");
 		request.setAttribute("namePreviousValue", name);
@@ -125,15 +84,6 @@ public class Controller extends HttpServlet {
 			request.setAttribute("inhabitantsClass", "has-error");
 			result.add(exc.getMessage());
 		}
-	}
-
-	private String showCountries(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Country mostPopular = service.getMostPopularCountry();
-		request.setAttribute("popular", mostPopular);
-		List<Country> countries = service.getAll();
-		request.setAttribute("countries", countries);
-		return "countryOverview.jsp";
 	}
 
 }

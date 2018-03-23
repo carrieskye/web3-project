@@ -1,4 +1,4 @@
-package ui.controller;
+package controller;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

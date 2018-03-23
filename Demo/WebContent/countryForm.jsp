@@ -21,7 +21,7 @@
 
 	<article>
 
-		<form method="POST" action="Controller">
+		<form method="POST" action="Controller?action=Add">
 			<c:if test="${fn:length(result) gt 0}">
 				<div class="alert alert">
 					<main> <c:forEach var="error" items="${result}">

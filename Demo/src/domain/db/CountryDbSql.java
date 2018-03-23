@@ -31,7 +31,7 @@ public class CountryDbSql implements CountryDb {
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
 			statement.execute("INSERT INTO " + currentSchema + ".country VALUES ('" + country.getName() + "', '"
-					+ country.getCapital() + "', '" + String.valueOf(country.getNumberInhabitants()) + "', '"
+					+ country.getCapital() + "', '" + String.valueOf(country.getNumberInhabitants()) + "', "
 					+ String.valueOf(country.getVotes()) + ")");
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
