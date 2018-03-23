@@ -5,10 +5,10 @@
 	<nav>
 		<ul>
 			<li><a href="index.jsp">Home</a></li>
-			<li><a href="Controller?action=userOverview">Users</a></li>
-			<li><a href="Controller?action=productOverview">Products</a></li>
-			<li><a href="Controller?action=productForm">Add product</a></li>
-			<li><a href="Controller?action=signUp">Sign up</a></li>
+			<li><a href="Controller?action=OverviewUsers">Users</a></li>
+			<li><a href="Controller?action=OverviewProducts">Products</a></li>
+			<li><a href="addProduct.jsp">Add product</a></li>
+			<li><a href="signUp.jsp">Sign up</a></li>
 		</ul>
 	</nav>
 </header>

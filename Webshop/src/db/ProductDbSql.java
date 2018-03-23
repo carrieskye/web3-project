@@ -48,7 +48,7 @@ public class ProductDbSql implements ProductDb {
 		List<Product> products = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();) {
-			ResultSet result = statement.executeQuery("SELECT * FROM product");
+			ResultSet result = statement.executeQuery("SELECT * FROM product ORDER BY 1");
 			while (result.next()) {
 				int productId = result.getInt("productid");
 				String name = result.getString("name");

@@ -21,10 +21,10 @@
 		<p>Are you sure you want to remove ${name}?
 		<p>
 		<p>
-			<a href="Controller?action=deleteProduct&productId=${productId}">OK</a>
+			<a href="Controller?action=DeleteProduct&productId=${productId}">OK</a>
 		</p>
 		<p>
-			<a href="Controller?action=productOverview">Cancel</a>
+			<a href="Controller?action=OverviewProducts">Cancel</a>
 		</p>
 
 

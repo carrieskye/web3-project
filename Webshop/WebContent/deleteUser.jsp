@@ -21,10 +21,10 @@
 		<p>Are you sure you want to remove ${firstname} ${lastname}?
 		<p>
 		<p>
-			<a id="confirm" href="Controller?action=deleteUser&userid=${userid}">OK</a>
+			<a id="confirm" href="Controller?action=DeleteUser&userid=${userid}">OK</a>
 		</p>
 		<p>
-			<a href="Controller?action=userOverview">Cancel</a>
+			<a href="Controller?action=OverviewUsers">Cancel</a>
 		</p>
 
 

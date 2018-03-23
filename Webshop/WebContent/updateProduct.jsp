@@ -29,7 +29,7 @@
 
 
 
-		<form method="post" action="Controller?action=updateProduct&productId=${productId}"
+		<form method="post" action="Controller?action=UpdateProduct&productId=${productId}"
 			novalidate="novalidate">
 			<!-- novalidate in order to be able to run tests correctly -->
 			<p>
