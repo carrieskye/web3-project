@@ -36,7 +36,8 @@ public class ProductDbSql implements ProductDb {
 				String name = result.getString("name");
 				String description = result.getString("description");
 				double price = result.getDouble("price");
-				product = new Product(id, name, description, price);
+				int stock = result.getInt("stock");
+				product = new Product(id, name, description, price, stock);
 			}
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);
@@ -54,7 +55,8 @@ public class ProductDbSql implements ProductDb {
 				String name = result.getString("name");
 				String description = result.getString("description");
 				double price = result.getDouble("price");
-				Product product = new Product(productId, name, description, price);
+				int stock = result.getInt("stock");
+				Product product = new Product(productId, name, description, price, stock);
 				products.add(product);
 			}
 		} catch (SQLException e) {
@@ -67,7 +69,7 @@ public class ProductDbSql implements ProductDb {
 		if (product == null) {
 			throw new DbException("No product given");
 		}
-		String sql = "INSERT INTO product (productid, name, description, price) VALUES (?,?,?,?)";
+		String sql = "INSERT INTO product (productid, name, description, price, stock) VALUES (?,?,?,?,?)";
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				Statement statement = connection.createStatement();
 				PreparedStatement prepStatement = connection.prepareStatement(sql);) {
@@ -79,6 +81,7 @@ public class ProductDbSql implements ProductDb {
 			prepStatement.setString(2, product.getName());
 			prepStatement.setString(3, product.getDescription());
 			prepStatement.setDouble(4, product.getPrice());
+			prepStatement.setInt(5, product.getStock());
 
 			prepStatement.execute();
 		} catch (SQLException e) {
@@ -90,13 +93,14 @@ public class ProductDbSql implements ProductDb {
 		if (product == null) {
 			throw new DbException("No product given");
 		}
-		String sql = "UPDATE product SET name = ?, description = ?, price = ? WHERE productid = ?";
+		String sql = "UPDATE product SET name = ?, description = ?, price = ?, stock = ? WHERE productid = ?";
 		try (Connection connection = DriverManager.getConnection(url, properties);
 				PreparedStatement statement = connection.prepareStatement(sql);) {
 			statement.setString(1, product.getName());
 			statement.setString(2, product.getDescription());
 			statement.setDouble(3, product.getPrice());
-			statement.setInt(4, product.getProductId());
+			statement.setInt(4, product.getStock());
+			statement.setInt(5, product.getProductId());
 			statement.execute();
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage(), e);

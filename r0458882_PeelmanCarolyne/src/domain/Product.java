@@ -5,21 +5,24 @@ public class Product {
 	private String name;
 	private String description;
 	private double price;
+	private int stock;
 
 	public Product() {
 	}
 
-	public Product(int productId, String name, String description, double d) {
+	public Product(int productId, String name, String description, double d, int stock) {
 		setProductId(productId);
 		setName(name);
 		setDescription(description);
 		setPrice(d);
+		setStock(stock);
 	}
 
-	public Product(String name, String description, double d) {
+	public Product(String name, String description, double d, int stock) {
 		setName(name);
 		setDescription(description);
 		setPrice(d);
+		setStock(stock);
 	}
 
 	public int getProductId() {
@@ -62,13 +65,32 @@ public class Product {
 		}
 		this.price = price;
 	}
-
+	
 	public void setPrice(String price) {
 		if (price.isEmpty()) {
 			throw new DomainException("No price given");
 		}
 		setPrice(Double.valueOf(price));
 	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		if (stock < 0) {
+			throw new DomainException("Give a valid stock");
+		}
+		this.stock = stock;
+	}
+	
+	public void setStock(String stock) {
+		if (stock.isEmpty()) {
+			throw new DomainException("No stock given");
+		}
+		setStock(Integer.valueOf(stock));
+	}
+
 
 	@Override
 	public boolean equals(Object o) {

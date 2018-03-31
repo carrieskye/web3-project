@@ -11,7 +11,7 @@
 	<div id="container">
 		<%@include file="header.jspf"%>
 		<jsp:include page="title.jsp">
-			<jsp:param name="title" value="User Overview"/>
+			<jsp:param name="title" value="User Overview" />
 		</jsp:include>
 
 		<main>
@@ -27,11 +27,16 @@
 					<td>${person.email}</td>
 					<td>${person.firstName}</td>
 					<td>${person.lastName}</td>
-					<td><a id="remove" href="Controller?action=DeleteUserConfirmation&userid=${person.userid}">Remove</a></td>
+					<td><a id="remove"
+						href="Controller?action=DeleteUserConfirmation&userid=${person.userid}">Remove</a></td>
 				</tr>
 			</c:forEach>
 			<caption>Users Overview</caption>
 		</table>
+		
+		<p>
+			<a href="Controller?action=OverviewUsersByLastname">Sorteer</a>
+		</p>
 		</main>
 		<footer> &copy; Webontwikkeling 3, UC Leuven-Limburg </footer>
 	</div>

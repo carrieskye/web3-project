@@ -21,13 +21,13 @@ import db.DbException;
 public class RegisterTest {
 	private WebDriver driver;
 	private static Properties properties = new Properties();
-	private static String url = "jdbc:postgresql://databanken.ucll.be:51718/2TXVT?currentSchema=r0458882";
+	private static String url = "jdbc:postgresql://databanken.ucll.be:51718/2TXVT?currentSchema=r0458882_test";
 
 	@Before
 	public void setUp() {
 		System.setProperty("webdriver.chrome.driver", "/Applications/App_downloads/chromedriver");
 		driver = new ChromeDriver();
-		driver.get("http://localhost:8080/Webshop/Controller?action=signUp");
+		driver.get("http://localhost:8080/r0458882_PeelmanCarolyne/signUp.jsp");
 		properties.setProperty("user", Login.user);
 		properties.setProperty("password", Login.password);
 		properties.setProperty("ssl", "true");
@@ -87,7 +87,7 @@ public class RegisterTest {
 		String title = driver.getTitle();
 		assertEquals("Home", title);
 
-		driver.get("http://localhost:8080/Webshop/Controller?action=userOverview");
+		driver.get("http://localhost:8080/r0458882_PeelmanCarolyne/Controller?action=OverviewUsers");
 
 		ArrayList<WebElement> listItems = (ArrayList<WebElement>) driver.findElements(By.cssSelector("table tr"));
 		boolean found = false;
@@ -225,7 +225,7 @@ public class RegisterTest {
 		String useridRandom = generateRandomUseridInOrderToRunTestMoreThanOnce("pierke");
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 
-		driver.get("http://localhost:8080/Webshop/Controller?action=signUp");
+		driver.get("http://localhost:8080/r0458882_PeelmanCarolyne/signUp.jsp");
 
 		submitForm(useridRandom, "Pieter", "Pieters", "pieter.pieters@hotmail.com", "1234");
 

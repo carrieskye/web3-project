@@ -20,6 +20,7 @@ public class UpdateProduct extends RequestHandler{
 		getName(product, request, result);
 		getDescription(product, request, result);
 		getPrice(product, request, result);
+		getStock(product, request, result);
 
 		String destination;
 		if (result.size() > 0) {
@@ -72,6 +73,18 @@ public class UpdateProduct extends RequestHandler{
 			request.setAttribute("priceClass", "has-success");
 		} catch (Exception exc) {
 			request.setAttribute("priceClass", "has-error");
+			result.add(exc.getMessage());
+		}
+	}
+	
+	private void getStock(Product product, HttpServletRequest request, List<String> result) {
+		String stock = request.getParameter("stock");
+		request.setAttribute("stockPreviousValue", stock);
+		try {
+			product.setStock(stock);
+			request.setAttribute("stockClass", "has-success");
+		} catch (Exception exc) {
+			request.setAttribute("stockClass", "has-error");
 			result.add(exc.getMessage());
 		}
 	}

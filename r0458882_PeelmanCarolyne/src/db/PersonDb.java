@@ -7,6 +7,8 @@ public interface PersonDb {
 	Person get(String personId);
 
 	List<Person> getAll();
+	
+	List<Person> getAllByLastname();
 
 	void add(Person person);
 

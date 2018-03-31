@@ -46,6 +46,10 @@
 					name="price" required value="${pricePreviousValue}">
 			</p>
 			<p>
+				<label for="stock">Stock</label><input type="number" id="stock"
+					name="stock" required value="${stockPreviousValue}">
+			</p>
+			<p>
 				<input type="submit" id="addProduct" value="Add Product">
 			</p>
 

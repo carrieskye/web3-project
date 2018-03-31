@@ -71,6 +71,27 @@ public class PersonDbSql implements PersonDb {
 		}
 		return persons;
 	}
+	
+	public List<Person> getAllByLastname() {
+		List<Person> persons = new ArrayList<>();
+		try (Connection connection = DriverManager.getConnection(url, properties);
+				Statement statement = connection.createStatement();) {
+			ResultSet result = statement.executeQuery("SELECT * FROM person ORDER BY lastname");
+			while (result.next()) {
+				String userId = result.getString("userid");
+				String firstName = result.getString("firstname");
+				String lastName = result.getString("lastname");
+				String email = result.getString("email");
+				String password = result.getString("password");
+				String salt = result.getString("salt");
+				Person person = new Person(userId, email, password, firstName, lastName, salt);
+				persons.add(person);
+			}
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage(), e);
+		}
+		return persons;
+	}
 
 	public void add(Person person) {
 		if (get(person.getUserid()) != null) {

@@ -27,6 +27,10 @@ public class ShopService {
 	public List<Person> getPersons() {
 		return getPersonDb().getAll();
 	}
+	
+	public List<Person> getPersonsByLastname(){
+		return getPersonDb().getAllByLastname();
+	}
 
 	public void addPerson(Person person) throws DbException {
 		getPersonDb().add(person);

@@ -17,9 +17,9 @@ public class ProductDbTest {
 	@Before
 	public void generateTestData() {
 		records = db.getAll().size();
-		product1 = new Product(records, "Banana", "Yellow fruit", 0.2);
-		product2 = new Product(records + 1, "Strawberry", "Red fruit with black spots", 0.1);
-		product3 = new Product(records + 2, "Kiwi", "Green fruit with brown peel", 0.1);
+		product1 = new Product(records, "Banana", "Yellow fruit", 0.2, 500);
+		product2 = new Product(records + 1, "Strawberry", "Red fruit with black spots", 0.1, 200);
+		product3 = new Product(records + 2, "Kiwi", "Green fruit with brown peel", 0.1, 50);
 
 		db.add(product1);
 		db.add(product2);
@@ -53,7 +53,7 @@ public class ProductDbTest {
 
 	@Test
 	public void addAddsProductWithCorrectValues() {
-		Product product = new Product(records + 3, "Coconut", "White fruit with milk", 3.0);
+		Product product = new Product(records + 3, "Coconut", "White fruit with milk", 3.0, 20);
 		db.add(product);
 		assertEquals(db.get(records + 3), product);
 		assertTrue(db.getAll().contains(product));
@@ -66,7 +66,7 @@ public class ProductDbTest {
 
 	private static Properties getProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("url", "jdbc:postgresql://databanken.ucll.be:51718/2TXVT");
+		properties.setProperty("url", "jdbc:postgresql://databanken.ucll.be:51718/2TXVT?currentSchema=r0458882_test");
 		properties.setProperty("user", Login.user);
 		properties.setProperty("password", Login.password);
 		properties.setProperty("ssl", "true");

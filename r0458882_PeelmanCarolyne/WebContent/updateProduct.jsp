@@ -29,7 +29,8 @@
 
 
 
-		<form method="post" action="Controller?action=UpdateProduct&productId=${productId}"
+		<form method="post"
+			action="Controller?action=UpdateProduct&productId=${productId}"
 			novalidate="novalidate">
 			<!-- novalidate in order to be able to run tests correctly -->
 			<p>
@@ -44,6 +45,10 @@
 			<p>
 				<label for="price">Price</label><input type="number" id="price"
 					name="price" required value="${pricePreviousValue}">
+			</p>
+			<p>
+				<label for="stock">Stock</label><input type="number" id="stock"
+					name="stock" required value="${stockPreviousValue}">
 			</p>
 			<p>
 				<input type="submit" id="updateProduct" value="Save">

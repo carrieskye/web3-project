@@ -15,6 +15,7 @@ public class UpdateProductForm extends RequestHandler {
 		request.setAttribute("namePreviousValue", product.getName());
 		request.setAttribute("descriptionPreviousValue", product.getDescription());
 		request.setAttribute("pricePreviousValue", product.getPrice());
+		request.setAttribute("stockPreviousValue", product.getStock());
 
 		String destination = "updateProduct.jsp";
 		return destination;

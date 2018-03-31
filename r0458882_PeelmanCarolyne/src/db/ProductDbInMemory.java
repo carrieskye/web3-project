@@ -11,7 +11,7 @@ public class ProductDbInMemory implements ProductDb{
 	private Map<Integer, Product> records = new HashMap<Integer, Product>();
 	
 	public ProductDbInMemory () {
-		Product rose = new Product("Rose", "Thorny plant", 2.25);
+		Product rose = new Product("Rose", "Thorny plant", 2.25, 10);
 		add(rose);
 	}
 	

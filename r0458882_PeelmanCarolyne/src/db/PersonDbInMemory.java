@@ -25,6 +25,10 @@ public class PersonDbInMemory implements PersonDb{
 	public List<Person> getAll(){
 		return new ArrayList<Person>(persons.values());	
 	}
+	
+	public List<Person> getAllByLastname(){
+		throw new DbException("Not implemented.");
+	}
 
 	public void add(Person person) throws DbException{
 		if(person == null){
