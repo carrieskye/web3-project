@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check whether cookies are enabled yes/no</title>
+	<script>
+		function checkCookies() {
+    			document.getElementById("demo").innerHTML =
+    			"Cookies enabled is " + navigator.cookieEnabled;
+		}
+	</script>
+</head>
+<body>
+	<p>Are cookies enabled in your browser?</p>
+	<button onclick="checkCookies()">Try it</button>
+	<p id="demo"></p>
+</body>
+</html>
