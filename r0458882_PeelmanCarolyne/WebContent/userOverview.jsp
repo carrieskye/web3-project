@@ -7,7 +7,7 @@
 <title>Overview</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body class="${color}">
 	<div id="container">
 		<%@include file="header.jspf"%>
 		<jsp:include page="title.jsp">

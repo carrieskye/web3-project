@@ -99,20 +99,16 @@ public class Person {
 			byte[] seed = random.generateSeed(20);
 			String salt = new BigInteger(1, seed).toString(16);
 			setSalt(salt);
-			hash.update(seed);
+			hash.update(salt.getBytes("UTF-8"));
 		}
 
 		else {
 			hash.update(getSalt().getBytes("UTF-8"));
 		}
 
-		byte[] passwordBytes = password.getBytes("UTF-8");
-		hash.update(passwordBytes);
-
-		byte[] digest = hash.digest();
-		BigInteger digestAsBigInteger = new BigInteger(1, digest);
-
-		return digestAsBigInteger.toString(16);
+		hash.update(password.getBytes("UTF-8"));
+		String hashedPassword = new BigInteger(1, hash.digest()).toString(16);
+		return hashedPassword;
 	}
 
 	public String getSalt() {

@@ -10,16 +10,15 @@
 <title>Sign Up</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body class="${color}">
 	<div id="container">
 		<%@include file="header.jspf"%>
 		<jsp:include page="title.jsp">
 			<jsp:param name="title" value="Sign Up" />
 		</jsp:include>
-
-		<c:if test="${fn:length(result) gt 0}">
+		<main> <c:if test="${fn:length(result) gt 0}">
 			<div class="alert-danger">
-				<main> <c:forEach var="error" items="${result}">
+				<c:forEach var="error" items="${result}">
 					<ul>
 						<li>${error}</li>
 					</ul>
@@ -34,7 +33,8 @@
 			<!-- novalidate in order to be able to run tests correctly -->
 			<p>
 				<label for="userid">User id</label><input type="text" id="userid"
-					name="userid" required value="<c:out value='${useridPreviousValue}'/>">
+					name="userid" required
+					value="<c:out value='${useridPreviousValue}'/>">
 			</p>
 			<p>
 				<label for="firstName">First Name</label><input type="text"
@@ -48,7 +48,8 @@
 			</p>
 			<p>
 				<label for="email">Email</label><input type="email" id="email"
-					name="email" required value="<c:out value='${emailPreviousValue}'/>">
+					name="email" required
+					value="<c:out value='${emailPreviousValue}'/>">
 			</p>
 			<p>
 				<label for="password">Password</label><input type="password"

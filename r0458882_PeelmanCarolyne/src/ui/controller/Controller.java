@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,9 +51,12 @@ public class Controller extends HttpServlet {
 	}
 
 	protected void processRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws ServletException, IOException {		
         String action = request.getParameter("action");
         String destination = "index.jsp";
+        request.setAttribute("color", getColorFromCookie(request));
+        request.setAttribute("userid", getUseridFromCookie(request));
+        
         if (action != null) {
         		RequestHandler handler;
         		handler = controllerFactory.getController(action, service);
@@ -60,6 +64,24 @@ public class Controller extends HttpServlet {
         }
         RequestDispatcher view = request.getRequestDispatcher(destination);
         view.forward(request, response);
+	}
+	
+	private String getColorFromCookie(HttpServletRequest request) {
+		for (Cookie cookie : request.getCookies()) {
+			if (cookie.getName().equals("color")) {
+				return cookie.getValue();
+			}
+		}
+		return null;
+	}
+	
+	private String getUseridFromCookie(HttpServletRequest request) {
+		for (Cookie cookie : request.getCookies()) {
+			if (cookie.getName().equals("userid")) {
+				return cookie.getValue();
+			}
+		}
+		return null;
 	}
 		
 

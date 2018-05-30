@@ -4,11 +4,11 @@
 	</h1>
 	<nav>
 		<ul>
-			<li><a href="index.jsp">Home</a></li>
+			<li><a href="Controller?action=Home">Home</a></li>
 			<li><a href="Controller?action=OverviewUsers">Users</a></li>
 			<li><a href="Controller?action=OverviewProducts">Products</a></li>
-			<li><a href="addProduct.jsp">Add product</a></li>
-			<li><a href="signUp.jsp">Sign up</a></li>
+			<li><a href="Controller?action=AddProductForm">Add product</a></li>
+			<li><a href="Controller?action=SignUpForm">Sign up</a></li>
 		</ul>
 	</nav>
 </header>
