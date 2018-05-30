@@ -17,13 +17,14 @@
 			<jsp:param name="title" value="Home" />
 		</jsp:include>
 
-		<main> Sed ut perspiciatis unde omnis iste natus error sit
-		voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-		ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-		dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-		aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-		qui ratione voluptatem sequi nesciunt. <c:if
-			test="${fn:length(result) gt 0}">
+		<main>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+			accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+			ab illo inventore veritatis et quasi architecto beatae vitae dicta
+			sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+			aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+			eos qui ratione voluptatem sequi nesciunt.</p>
+		<c:if test="${fn:length(result) gt 0}">
 			<div class="alert-danger">
 				<c:forEach var="error" items="${result}">
 					<ul>
@@ -32,11 +33,9 @@
 				</c:forEach>
 			</div>
 		</c:if>
-		<p>${userid}</p>
-		<p>${color}</p>
+
 		<form method="post" action="Controller?action=LogIn"
 			novalidate="novalidate">
-			<!-- novalidate in order to be able to run tests correctly -->
 			<p>
 				<label for="userid">Your userid</label><input type="text"
 					id="userid" name="userid" required

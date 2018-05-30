@@ -11,6 +11,14 @@ body {
 	background-color: #303d11;
 }
 
+.blue{
+	background-color: cyan;
+}
+
+.pink{
+	background-color: pink;
+}
+
 div#container {
 	background-color: #FFF;
 	margin: auto;
