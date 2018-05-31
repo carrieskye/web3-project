@@ -4,16 +4,17 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Home extends RequestHandler {
+public class LogOut extends RequestHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("userLoggedIn", userLoggedIn);
+		userLoggedIn = false;
 		for (Cookie cookie : request.getCookies()) {
 			if (cookie.getName().equals("color") && cookie.getValue().equals("pink")) {
 				request.setAttribute("pinkRegistered", true);
 			}
 		}
+		request.setAttribute("color", null);
 		return "index.jsp";
 	}
 

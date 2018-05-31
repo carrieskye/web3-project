@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +19,18 @@ public class LogIn extends RequestHandler {
 		List<String> result = new ArrayList<String>();
 		Person person = findPerson(request, result);
 		if (person != null && checkPassword(person, request, result)) {
-			response.addCookie(new Cookie("userid", person.getUserid()));
+			if (request.getParameter("remember") != null) {
+				response.addCookie(new Cookie("userid", person.getUserid()));
+			} else {
+				response.addCookie(new Cookie("userid", null));
+			}
 			request.setAttribute("userid", person.getUserid());
+
 			String color = request.getParameter("background") == null ? "blue" : "pink";
 			response.addCookie(new Cookie("color", color));
 			request.setAttribute("color", color);
+			userLoggedIn = true;
+			request.setAttribute("userLoggedIn", true);
 		} else {
 			request.setAttribute("result", result);
 		}
@@ -39,7 +45,6 @@ public class LogIn extends RequestHandler {
 				return person;
 			}
 		}
-		request.setAttribute("useridLoginPreviousValue", userid);
 		request.setAttribute("useridLoginClass", "has-error");
 		result.add("Userid does not exist");
 		return null;
@@ -54,6 +59,7 @@ public class LogIn extends RequestHandler {
 			} else {
 				request.setAttribute("passwordClass", "has-error");
 				result.add("Please enter a valid password");
+				request.setAttribute("userid", person.getUserid());
 				return false;
 			}
 		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {

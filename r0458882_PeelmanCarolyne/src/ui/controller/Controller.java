@@ -54,12 +54,14 @@ public class Controller extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {		
         String action = request.getParameter("action");
         String destination = "index.jsp";
-        request.setAttribute("color", getColorFromCookie(request));
         request.setAttribute("userid", getUseridFromCookie(request));
         
         if (action != null) {
         		RequestHandler handler;
         		handler = controllerFactory.getController(action, service);
+        		if (handler.isUserLoggedIn()) {
+        	        request.setAttribute("color", getColorFromCookie(request));
+        		}
 			destination = handler.handleRequest(request, response);
         }
         RequestDispatcher view = request.getRequestDispatcher(destination);

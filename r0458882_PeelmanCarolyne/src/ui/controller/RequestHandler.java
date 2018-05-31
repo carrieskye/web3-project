@@ -11,6 +11,7 @@ import service.ShopService;
 public abstract class RequestHandler {
 
 	private ShopService service;
+	protected boolean userLoggedIn;
 
 	public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response);
 
@@ -32,6 +33,10 @@ public abstract class RequestHandler {
 		List<Person> persons = service.getPersons();
 		request.setAttribute("persons", persons);
 		return "userOverview.jsp";
+	}
+	
+	public boolean isUserLoggedIn() {
+		return this.userLoggedIn;
 	}
 
 }
