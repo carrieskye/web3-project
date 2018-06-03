@@ -1,5 +1,7 @@
 package service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Properties;
 
@@ -27,8 +29,8 @@ public class ShopService {
 	public List<Person> getPersons() {
 		return getPersonDb().getAll();
 	}
-	
-	public List<Person> getPersonsByLastname(){
+
+	public List<Person> getPersonsByLastname() {
 		return getPersonDb().getAllByLastname();
 	}
 
@@ -70,5 +72,14 @@ public class ShopService {
 
 	private ProductDb getProductDb() {
 		return productDb;
+	}
+
+	public Person getUserIfAuthenticated(String userid, String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		for (Person person : getPersons()) {
+			if (person.getUserid().toLowerCase().equals(userid.toLowerCase()) && person.isCorrectPassword(password)) {
+				return person;
+			}
+		}
+		return null;
 	}
 }

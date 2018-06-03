@@ -1,5 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,11 +48,6 @@
 					</p>
 
 					<p>
-						<label for="remember">Remember me</label> <input type="checkbox"
-							name="remember">
-					</p>
-
-					<p>
 						<input type="submit" id="login" value="Log In">
 					</p>
 
@@ -65,7 +60,7 @@
 				</form>
 			</c:when>
 			<c:otherwise>
-				<p>Welcome, ${userid}!</p>
+				<p>Welcome, ${user}!</p>
 
 				<form method="post" action="Controller?action=LogOut"
 					novalidate="novalidate">

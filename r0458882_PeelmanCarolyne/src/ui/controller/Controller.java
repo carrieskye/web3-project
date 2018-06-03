@@ -7,11 +7,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import domain.Person;
 import service.ShopService;
 
 @WebServlet("/Controller")
@@ -24,67 +25,67 @@ public class Controller extends HttpServlet {
 	public Controller() {
 		super();
 	}
-	
+
 	public void init() throws ServletException {
-   		super.init();
-   		ServletContext context = getServletContext();
-   		
-   		Properties properties = new Properties();
-   		properties.setProperty("user", context.getInitParameter("user"));
-   		properties.setProperty("password", context.getInitParameter("password") );
-   		properties.setProperty("ssl", context.getInitParameter("ssl"));
-   		properties.setProperty("sslfactory", context.getInitParameter("sslfactory"));
-   		properties.setProperty("url", context.getInitParameter("url"));
-   		
-   		service = new ShopService(properties);
-   }
+		super.init();
+		ServletContext context = getServletContext();
 
+		Properties properties = new Properties();
+		properties.setProperty("user", context.getInitParameter("user"));
+		properties.setProperty("password", context.getInitParameter("password"));
+		properties.setProperty("ssl", context.getInitParameter("ssl"));
+		properties.setProperty("sslfactory", context.getInitParameter("sslfactory"));
+		properties.setProperty("url", context.getInitParameter("url"));
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		service = new ShopService(properties);
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
-	protected void processRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {		
-        String action = request.getParameter("action");
-        String destination = "index.jsp";
-        request.setAttribute("userid", getUseridFromCookie(request));
-        
-        if (action != null) {
-        		RequestHandler handler;
-        		handler = controllerFactory.getController(action, service);
-        		if (handler.isUserLoggedIn()) {
-        	        request.setAttribute("color", getColorFromCookie(request));
-        		}
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		String destination = "index.jsp";
+		request.setAttribute("userid", getUseridFromSession(request));
+
+		if (action != null) {
+			RequestHandler handler;
+			handler = controllerFactory.getController(action, service);
+			if (handler.isUserLoggedIn()) {
+				request.setAttribute("color", getColorFromSession(request));
+			}
 			destination = handler.handleRequest(request, response);
-        }
-        RequestDispatcher view = request.getRequestDispatcher(destination);
-        view.forward(request, response);
-	}
-	
-	private String getColorFromCookie(HttpServletRequest request) {
-		for (Cookie cookie : request.getCookies()) {
-			if (cookie.getName().equals("color")) {
-				return cookie.getValue();
-			}
 		}
-		return null;
+		RequestDispatcher view = request.getRequestDispatcher(destination);
+		view.forward(request, response);
 	}
-	
-	private String getUseridFromCookie(HttpServletRequest request) {
-		for (Cookie cookie : request.getCookies()) {
-			if (cookie.getName().equals("userid")) {
-				return cookie.getValue();
-			}
+
+	private String getColorFromSession(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Object color = session.getAttribute("color");
+		if (color != null) {
+			return (String) color;
+		} else {
+			return null;
 		}
-		return null;
 	}
-		
+
+	private String getUseridFromSession(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Object user = session.getAttribute("user");
+		if (user != null) {
+			return ((Person) user).getUserid();
+		} else {
+			return null;
+		}
+	}
 
 }
