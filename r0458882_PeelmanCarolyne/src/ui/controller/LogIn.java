@@ -1,5 +1,7 @@
 package ui.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,8 @@ public class LogIn extends RequestHandler {
 			request.setAttribute("color", color);
 			userLoggedIn = true;
 			request.setAttribute("userLoggedIn", true);
-		} catch (Exception e) {
+			throw new CustomRedirectException("index.jsp");
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			result.add("No valid userid/password");
 			request.setAttribute("result", result);
 		}

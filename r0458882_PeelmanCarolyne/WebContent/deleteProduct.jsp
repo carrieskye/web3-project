@@ -18,15 +18,12 @@
 		</jsp:include>
 
 		<main>
-		<p>Are you sure you want to remove ${name}?
-		<p>
-		<p>
-			<a href="Controller?action=DeleteProduct&productId=${productId}">OK</a>
-		</p>
-		<p>
-			<a href="Controller?action=OverviewProducts">Cancel</a>
-		</p>
-
+		<p>Are you sure you want to remove ${name}?</p>
+		<form method="POST"
+			action="Controller?action=DeleteProduct&productId=${productId}">
+			<input type="submit" value="OK">
+			<a href="Controller?action=OverviewProducts" class="button">Cancel</a>
+		</form>
 
 		</main>
 		<footer> &copy; Webontwikkeling 3, UC Leuven-Limburg </footer>

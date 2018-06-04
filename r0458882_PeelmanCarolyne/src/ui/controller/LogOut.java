@@ -19,7 +19,7 @@ public class LogOut extends RequestHandler {
 		}
 		request.setAttribute("color", null);
 		session.invalidate();
-		return "index.jsp";
+		throw new CustomRedirectException("index.jsp");
 	}
 
 }

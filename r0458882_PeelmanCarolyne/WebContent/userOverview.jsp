@@ -28,7 +28,7 @@
 					<td>${person.firstName}</td>
 					<td>${person.lastName}</td>
 					<td><a id="remove"
-						href="Controller?action=DeleteUserConfirmation&userid=${person.userid}">Remove</a></td>
+						href="Controller?action=DeleteUser&userid=${person.userid}">Remove</a></td>
 				</tr>
 			</c:forEach>
 			<caption>Users Overview</caption>

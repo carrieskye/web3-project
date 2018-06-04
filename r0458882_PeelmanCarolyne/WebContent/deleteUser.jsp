@@ -19,13 +19,11 @@
 
 		<main>
 		<p>Are you sure you want to remove ${firstname} ${lastname}?
-		<p>
-		<p>
-			<a id="confirm" href="Controller?action=DeleteUser&userid=${userid}">OK</a>
-		</p>
-		<p>
-			<a href="Controller?action=OverviewUsers">Cancel</a>
-		</p>
+		<form method="POST"
+			action="Controller?action=DeleteUser&userid=${userid}">
+			<input type="submit" value="OK"> <a
+				href="Controller?action=OverviewUsers" class="button">Cancel</a>
+		</form>
 
 
 		</main>

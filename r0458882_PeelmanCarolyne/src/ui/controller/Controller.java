@@ -62,7 +62,12 @@ public class Controller extends HttpServlet {
 			if (handler.isUserLoggedIn()) {
 				request.setAttribute("color", getColorFromSession(request));
 			}
-			destination = handler.handleRequest(request, response);
+			try {
+				destination = handler.handleRequest(request, response);
+			} catch (CustomRedirectException e) {
+					response.sendRedirect(e.getLocation());
+					return;
+			}
 		}
 		RequestDispatcher view = request.getRequestDispatcher(destination);
 		view.forward(request, response);

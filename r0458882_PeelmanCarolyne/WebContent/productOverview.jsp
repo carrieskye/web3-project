@@ -25,11 +25,11 @@
 			</tr>
 			<c:forEach var="product" items="${products}">
 				<tr>
-					<td><a href="Controller?action=UpdateProductForm&productId=${product.productId}">${product.name}</a></td>
+					<td><a href="Controller?action=UpdateProduct&productId=${product.productId}">${product.name}</a></td>
 					<td>${product.description}</td>
 					<td>${product.price}</td>
 					<td>${product.stock}</td>
-					<td><a href="Controller?action=DeleteProductConfirmation&productId=${product.productId}">Remove</a></td>
+					<td><a href="Controller?action=DeleteProduct&productId=${product.productId}">Remove</a></td>
 				</tr>
 			</c:forEach>
 			<caption>Product Overview</caption>

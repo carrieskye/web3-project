@@ -102,11 +102,11 @@ form {
 	list-style-type: none;
 }
 
-label, input, textarea {
+label, input, textarea, button {
 	margin-bottom: 16px;
 }
 
-input, textarea {
+input, textarea, button, .button {
 	border: 1px solid #888;
 	margin: 2px 0 16px 0;
 	outline: 0 none;
@@ -145,8 +145,13 @@ input[type="text"], input[type="email"], textarea {
 	width: 100%;
 }
 
-input {
+input, button, .button {
 	height: 25px;
+}
+a.button {
+	text-decoration: none;
+	font: 400 11px system-ui;
+	
 }
 
 /* desktop */

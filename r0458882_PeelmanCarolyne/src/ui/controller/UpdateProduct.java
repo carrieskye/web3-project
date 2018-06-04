@@ -6,12 +6,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.DbException;
 import domain.Product;
 
 public class UpdateProduct extends RequestHandler{
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		if (request.getMethod().equals("GET")) {
+			return updateForm(request);
+		}
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		Product product = getService().getProduct(productId);
 
@@ -30,14 +34,27 @@ public class UpdateProduct extends RequestHandler{
 		} else {
 			try {
 				getService().updateProduct(product);
-				destination = OverviewProducts(request, response);
-			} catch (Exception e) {
+				throw new CustomRedirectException("Controller?action=OverviewProducts");
+			} catch (DbException e) {
 				result.add(e.getMessage());
 				request.setAttribute("result", result);
 				request.setAttribute("productId", productId);
 				destination = "updateProduct.jsp";
 			}
 		}
+		return destination;
+	}
+	
+	private String updateForm(HttpServletRequest request) {
+		Product product = getService().getProduct(Integer.parseInt(request.getParameter("productId")));
+
+		request.setAttribute("productId", product.getProductId());
+		request.setAttribute("namePreviousValue", product.getName());
+		request.setAttribute("descriptionPreviousValue", product.getDescription());
+		request.setAttribute("pricePreviousValue", product.getPrice());
+		request.setAttribute("stockPreviousValue", product.getStock());
+
+		String destination = "updateProduct.jsp";
 		return destination;
 	}
 	

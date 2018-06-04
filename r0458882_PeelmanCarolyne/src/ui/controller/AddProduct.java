@@ -6,12 +6,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.DbException;
 import domain.Product;
 
 public class AddProduct extends RequestHandler{
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		if (request.getMethod().equals("GET")) {
+			return "addProduct.jsp";
+		}
+		
 		Product product = new Product();
 
 		List<String> result = new ArrayList<String>();
@@ -27,8 +32,8 @@ public class AddProduct extends RequestHandler{
 		} else {
 			try {
 				getService().addProduct(product);
-				destination = OverviewProducts(request, response);
-			} catch (Exception e) {
+				throw new CustomRedirectException("Controller?action=OverviewProducts");
+			} catch (DbException e) {
 				result.add(e.getMessage());
 				request.setAttribute("result", result);
 				destination = "addProduct.jsp";

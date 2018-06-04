@@ -6,12 +6,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.DbException;
 import domain.Person;
 
 public class AddUser extends RequestHandler {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+		if (request.getMethod().equals("GET")) {
+			return "signUp.jsp";
+		}
 		Person person = new Person();
 
 		List<String> result = new ArrayList<String>();
@@ -28,9 +32,8 @@ public class AddUser extends RequestHandler {
 		} else {
 			try {
 				getService().addPerson(person);
-				destination = "index.jsp";
-				// destination = showPersons(request, response);
-			} catch (Exception e) {
+				throw new CustomRedirectException("index.jsp");
+			} catch (DbException e) {
 				result.add(e.getMessage());
 				request.setAttribute("result", result);
 				destination = "signUp.jsp";
